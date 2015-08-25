@@ -9,46 +9,31 @@
             $(function() {
                 var context = new (window.AudioContext || window.webkitAudioContext)(),
                     source,
-                    analyser,
-                    javascriptNode;
+                    scriptProcessor;
 
-                var ctx = document.getElementById("canvas").getContext("2d");
-                var gradient = ctx.createLinearGradient(0,0,0,400);
+                var canvasCtx = document.getElementById("canvas").getContext("2d"),
+                    gradient = canvasCtx.createLinearGradient(0, 0, 0, 400);
+                gradient.addColorStop(0,'#ff0000');
                 gradient.addColorStop(1,'#000000');
-                gradient.addColorStop(0.75,'#ff0000');
-                gradient.addColorStop(0.25,'#ffff00');
-                gradient.addColorStop(0,'#ffffff');
+                canvasCtx.fillStyle = gradient;
 
-                function setupAudioNodes(source) {
-                    javascriptNode = context.createScriptProcessor(2048, 1, 1);
-                    javascriptNode.connect(context.destination);
+                var setupAudioGraph = function(source) {
+                    var analyser = context.createAnalyser();
+                    analyser.smoothingTimeConstant = 0.85;
+                    analyser.fftSize = 512;
 
-                    javascriptNode.onaudioprocess = function() {
-
-                        // get the average for the first channel
+                    scriptProcessor = context.createScriptProcessor(2048, 1, 1);
+                    scriptProcessor.onaudioprocess = function() {
                         var array =  new Uint8Array(analyser.frequencyBinCount);
                         analyser.getByteFrequencyData(array);
-
-                        // clear the current state
-                        ctx.clearRect(0, 0, 1000, 400);
-
-                        // set the fill style
-                        ctx.fillStyle = gradient;
+                        canvasCtx.clearRect(0, 0, 1200, 400);
                         for(var i = 0; i < array.length; i++) {
-                            ctx.fillRect(i*5, 400-array[i], 3, 400);
+                            canvasCtx.fillRect(i * 5, 400 - array[i], 3, 400);
                         }
                     };
 
-                    // setup a analyzer
-                    analyser = context.createAnalyser();
-                    analyser.smoothingTimeConstant = 0.3;
-                    analyser.fftSize = 512;
-
-                    // create a buffer source node
-                    //source = context.createBufferSource();
                     source.connect(analyser);
-                    analyser.connect(javascriptNode);
-
+                    analyser.connect(scriptProcessor);
                     source.connect(context.destination);
                 }
 
@@ -62,8 +47,7 @@
                         context.decodeAudioData(e.target.result, function(buffer) {
                             source = context.createBufferSource();
                             source.buffer = buffer;
-                            setupAudioNodes(source);
-                            //source.connect(context.destination);
+                            setupAudioGraph(source);
                             source.start(0);
                         }, function(error) {
                             console.error("failed to decode:", error);
@@ -91,7 +75,8 @@
                 }
 
                 var stopMusic = function() {
-                    source && source.stop(0); 
+                    source && source.stop(0);
+                    scriptProcessor.onaudioprocess = function() {};
                 }
 
                 var showSelectedFileInfo = function(file) {
@@ -173,6 +158,6 @@
             <p class="now-playing-artist"></p>
             <p class="now-playing-title"></p>
         </div>
-        <canvas id="canvas" width="1000" height="400"></canvas>
+        <canvas id="canvas" width="1200" height="400"></canvas>
     </body>
 </html>
