@@ -40,7 +40,7 @@ body
     cursor: pointer;
 }
 
-.file-input.drag
+.grag-n-drop-area.hover
 {
     background: #ddd;
     border-color: #aaa;
