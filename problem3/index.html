@@ -65,7 +65,6 @@
                             setupAudioNodes(source);
                             //source.connect(context.destination);
                             source.start(0);
-                            showNowPlaying();
                         }, function(error) {
                             console.error("failed to decode:", error);
                         });
@@ -76,23 +75,31 @@
                     reader.readAsArrayBuffer(window.musicSource);
                 }
 
+                var extractTags = function(file) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        console.log(e);
+                        id3(file, function(err, tags) {
+                            file.tags = tags;
+                            showSelectedFileInfo(file);
+                        });
+                    };
+                    reader.onerror = function(e) {
+                        console.error(e);
+                    };
+                    reader.readAsArrayBuffer(file);
+                }
+
                 var stopMusic = function() {
                     source && source.stop(0); 
-                    hideNowPlaying();
                 }
 
-                var showNowPlaying = function() {
-                    $(".now-playing-file").text("Now playing: " + window.musicSource.name);
-                    $(".now-playing-artist").text("Artist: " + window.musicSource.tags.artist);
-                    $(".now-playing-title").text("Title: " + window.musicSource.tags.title);
+                var showSelectedFileInfo = function(file) {
+                    $(".now-playing-file").text("You selected: " + file.name);
+                    $(".now-playing-artist").text("Artist: " + file.tags.artist);
+                    $(".now-playing-title").text("Title: " + file.tags.title);
                 }
 
-                var hideNowPlaying = function() {
-                    $(".now-playing-file").text("");
-                    $(".now-playing-artist").text("");
-                    $(".now-playing-title").text("");
-                }
-            
                 $(".button-stop").addClass("hidden");
 
                 $(".button-play" ).click(function() {
@@ -114,6 +121,7 @@
                 (function() {
                     $(".file-input").change(function(e) {
                         window.musicSource = e.target.files[0];
+                        extractTags(window.musicSource);
                     });
 
                     $(".grag-n-drop-area").click(function() {
@@ -129,7 +137,7 @@
             <button class="button-stop">Stop</button>
             <div class="uploader">
                 <input class="file-input" type="file"/>
-                <div class="grag-n-drop-area">Drag file here or click</div>
+                <div class="grag-n-drop-area">Click or Drag the file here</div>
             </div>
         </div>
         <div>
