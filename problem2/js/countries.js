@@ -49,7 +49,7 @@ var responses = {};
 
 for (i = 0; i < 3; i++) {
     var request = requests[i];
-    var callback = function(request) {
+    var callback = function (request) {
         return function (error, result) {
             responses[request] = result;
             var l = [];
