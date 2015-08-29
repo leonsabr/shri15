@@ -46,6 +46,7 @@ function getData(url, callback) {
  */
 var requests = ['/countries', '/cities', '/populations'];
 var responses = {};
+var geoObject = prompt('Please enter country or city');
 
 for (i = 0; i < 3; i++) {
     var request = requests[i];
@@ -58,6 +59,7 @@ for (i = 0; i < 3; i++) {
 
             if (l.length == 3) {
                 var c = [], cc = [], p = 0;
+                var citiesInCountry = [], populationInGeoObject = 0;
                 for (i = 0; i < responses['/countries'].length; i++) {
                     if (responses['/countries'][i].continent === 'Africa') {
                         c.push(responses['/countries'][i].name);
@@ -70,6 +72,14 @@ for (i = 0; i < 3; i++) {
                             cc.push(responses['/cities'][i].name);
                         }
                     }
+                    if (geoObject && responses['/cities'][i].country === geoObject) {
+                        citiesInCountry.push(responses['/cities'][i].name);
+                    }
+                }
+
+                if (geoObject && citiesInCountry.length === 0) {
+                    // looks like user entered city because we do not know such country
+                    citiesInCountry.push(geoObject);
                 }
 
                 for (i = 0; i < responses['/populations'].length; i++) {
@@ -78,9 +88,17 @@ for (i = 0; i < 3; i++) {
                             p += responses['/populations'][i].count;
                         }
                     }
+                    for (j = 0; geoObject && j < citiesInCountry.length; j++) {
+                        if (responses['/populations'][i].name === citiesInCountry[j]) {
+                            populationInGeoObject += responses['/populations'][i].count;
+                        }
+                    }
                 }
 
                 console.log('Total population in African cities: ' + p);
+                console.log(geoObject && populationInGeoObject > 0 ?
+                    "Population in " + geoObject + " is " + populationInGeoObject :
+                    "Next time ask something we know!");
             }
         }
     } (request);
