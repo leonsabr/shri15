@@ -13,15 +13,15 @@ Immediately Invoked Function Expression
 Заменяем
 ```javascript
 var x = ...;
-var callback = function(...) {
+var callback = function (...) {
     // use x	
 }
 ```
 на
 ```javascript
 var x = ...;
-var callback = function(x) {
-	return function(...) {
+var callback = function (x) {
+	return function (...) {
 		// use x	
 	}
 } (x);
