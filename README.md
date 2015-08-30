@@ -2,7 +2,8 @@
 
 ### Задание №1
 * [Работающий пример](http://rawgit.com/leonsabr/shri15/master/problem1/index.html)
-* [Исходный код](https://github.com/leonsabr/shri15/blob/master/problem1/index.html)
+* Исходный код [html](https://github.com/leonsabr/shri15/blob/master/problem1/index.html) и 
+[css](https://github.com/leonsabr/shri15/blob/master/problem1/css/board.css)
 * [README](https://github.com/leonsabr/shri15/blob/master/problem1/README.md)
 
 ### Задание №2
