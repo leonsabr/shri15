@@ -67,7 +67,7 @@ td:hover::after
 
 .flight-code
 {
-    width: 50px;
+    width: 60px;
 }
 
 .flight-carrier
@@ -124,6 +124,7 @@ td:hover::after
     white-space: normal;
 }
 
+/* Далее: адаптивность (скрытие столбцов) */
 @media only screen and (min-width: 1001px) {
     .flight-carrier,
     .flight-aircraft
@@ -161,4 +162,25 @@ td:hover::after
     {
         display: none;
     }
+}
+
+/* Далее: чекбоксы вылет/прилёт скрывают строки таблицы */
+#departure ~ div > .inner .flight-departure
+{
+    display: none;
+}
+
+#departure:checked ~ div > .inner .flight-departure
+{
+    display: table-row;
+}
+
+#arrive ~ div > .inner .flight-arrive
+{
+    display: none;
+}
+
+#arrive:checked ~ div > .inner .flight-arrive
+{
+    display: table-row;
 }
