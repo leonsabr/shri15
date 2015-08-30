@@ -1,0 +1,126 @@
+.wrap
+{
+    width: 100%;
+    height: 100vh;
+}
+
+.wrap table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.inner {
+    height: 90vh;
+    overflow-y: auto;
+}
+
+table
+{
+    border-collapse: collapse;
+    border-spacing: 0;
+    overflow: hidden;
+}
+
+td
+{
+    border: 1px solid black;
+    height: 60px;
+    padding: 0 10px 0;
+    white-space: nowrap;
+    position: relative;
+}
+
+tr:hover
+{
+    background-color: #fff0f5;
+}
+
+td:hover::after,
+th:hover::after
+{
+    content: "";
+    position: absolute;
+    background-color: #fff0f5;
+    left: 0;
+    top: -5000px;
+    height: 10000px;
+    width: 100%;
+    z-index: -1;
+}
+
+
+
+
+
+.flight-type
+{
+    width: 60px;
+    padding: 0;
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+}
+
+.arrive
+{
+    background-image: url(../img/arrive.png);
+}
+
+.departure
+{
+    background-image: url(../img/departure.png);
+}
+
+.flight-code
+{
+    width: 50px;
+}
+
+.flight-carrier
+{
+    white-space: normal;
+}
+
+.flight-logo
+{
+    width: 60px;
+    padding: 0;
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+}
+
+.aeroflot
+{
+    background-image: url(../img/aeroflot.png);
+}
+
+.s7
+{
+    background-image: url(../img/s7.png);
+}
+
+.nordwind
+{
+    background-image: url(../img/nordwind.png);
+}
+
+.belavia
+{
+    background-image: url(../img/belavia.png);
+}
+
+
+.flight-time
+{
+    width: 40px;
+    text-align: center;
+}
+
+.flight-status
+{
+    white-space: normal;
+}
+
+.flight-comment
+{
+    white-space: normal;
+}
