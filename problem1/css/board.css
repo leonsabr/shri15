@@ -25,7 +25,7 @@ td
 {
     border: 1px solid black;
     height: 60px;
-    padding: 0 10px 0;
+    padding: 0 5px 0;
     white-space: nowrap;
     position: relative;
 }
@@ -35,8 +35,7 @@ tr:hover
     background-color: #fff0f5;
 }
 
-td:hover::after,
-th:hover::after
+td:hover::after
 {
     content: "";
     position: absolute;
@@ -47,10 +46,6 @@ th:hover::after
     width: 100%;
     z-index: -1;
 }
-
-
-
-
 
 .flight-type
 {
@@ -78,6 +73,11 @@ th:hover::after
 .flight-carrier
 {
     white-space: normal;
+}
+
+.flight-aircraft-short
+{
+    width: 35px;
 }
 
 .flight-logo
@@ -108,7 +108,6 @@ th:hover::after
     background-image: url(../img/belavia.png);
 }
 
-
 .flight-time
 {
     width: 40px;
@@ -123,4 +122,43 @@ th:hover::after
 .flight-comment
 {
     white-space: normal;
+}
+
+@media only screen and (min-width: 1001px) {
+    .flight-carrier,
+    .flight-aircraft
+    {
+        display: table-cell;
+    }
+
+    .flight-aircraft-short
+    {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 801px) and (max-width: 1000px) {
+    .flight-aircraft
+    {
+        display: table-cell;
+    }
+
+    .flight-aircraft-short,
+    .flight-carrier
+    {
+        display: none;
+    }
+}
+
+@media only screen and (max-width:800px) {
+    .flight-aircraft-short
+    {
+        display: table-cell;
+    }
+
+    .flight-carrier,
+    .flight-aircraft
+    {
+        display: none;
+    }
 }
