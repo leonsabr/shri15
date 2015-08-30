@@ -3,7 +3,7 @@
 ### Задание №1
 * [Работающий пример](http://rawgit.com/leonsabr/shri15/master/problem1/index.html)
 * [Исходный код](https://github.com/leonsabr/shri15/blob/master/problem1/index.html)
-* [README](https://github.com/leonsabr/shri15/blob/master/problem1/READMY.md)
+* [README](https://github.com/leonsabr/shri15/blob/master/problem1/README.md)
 
 ### Задание №2
 * [Работающий пример](http://rawgit.com/leonsabr/shri15/master/problem2/index.html)
